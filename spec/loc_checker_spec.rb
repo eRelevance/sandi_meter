@@ -14,7 +14,7 @@ describe SandiMeter::LOCChecker do
       # REFACTOR
       # avoid passing dumb arguments to tested methods
       it 'passes the check' do
-        checker.check([1,2,3], 'blah').should be_true
+        checker.check([1,2,3], 'blah').should be true
       end
     end
 
@@ -25,7 +25,7 @@ describe SandiMeter::LOCChecker do
       end
 
       it 'does not pass the check' do
-        checker.check([1,2,3], 'blah').should be_false
+        checker.check([1,2,3], 'blah').should be false
       end
     end
   end

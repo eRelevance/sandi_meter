@@ -4,7 +4,7 @@ require 'json'
 module SandiMeter
   class HtmlGenerator
     def copy_assets!(path)
-      asset_dir_path = File.join(path, 'sandi_meter/assets')
+      asset_dir_path = File.join(path, 'assets')
       FileUtils.mkdir(asset_dir_path) unless Dir.exists?(asset_dir_path)
 
 
@@ -12,11 +12,11 @@ module SandiMeter
         FileUtils.cp file, File.join(asset_dir_path, File.basename(file))
       end
 
-      FileUtils.cp File.join(File.dirname(__FILE__), "../../html", "index.html"), File.join(path, 'sandi_meter', 'index.html')
+      FileUtils.cp File.join(File.dirname(__FILE__), "../../html", "index.html"), File.join(path, 'index.html')
     end
 
     def generate_data!(path)
-      raw_data = File.read(File.join(path, 'sandi_meter', 'sandi_meter.log')).split("\n")
+      raw_data = File.read(File.join(path, 'sandi_meter.log')).split("\n")
       raw_data.map! { |row| row.split(';').map(&:to_i) }
 
       data = []
@@ -31,7 +31,7 @@ module SandiMeter
         data << hash
       end
 
-      index_file = File.join(path, 'sandi_meter', 'index.html')
+      index_file = File.join(path, 'index.html')
       index = File.read(index_file)
       index.gsub!('<% plot_data %>', data.to_json)
 
@@ -91,7 +91,7 @@ module SandiMeter
         )
       end
 
-      index_file = File.join(path, 'sandi_meter', 'index.html')
+      index_file = File.join(path, 'index.html')
       index = File.read(index_file)
       index.gsub!('<% details %>', details)
 

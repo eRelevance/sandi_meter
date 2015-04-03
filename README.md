@@ -19,6 +19,7 @@ sandi_meter --help
     -g, --graph                      HTML mode. Create folder, log data and output stats to HTML file.
         --json                       Output as JSON
     -l, --log                        Show syntax error and indentation log output
+    -o, --output PATH                Path to output folder (default is "./sandi_meter")
     -p, --path PATH                  Path to folder or file to analyze (default is ".")
     -r, --rules                      Show rules
     -h, --help                       Help
@@ -77,7 +78,7 @@ Add ignore files and folders in `sandi_meter/.sandi_meter` file.
 require 'sandi_meter/file_scanner'
 require 'pp'
 
-scanner = SandiMeter::FileScanner.new
+scanner = SandiMeter::FileScanner.new(IGNORE_FILE_PATH)
 data = scanner.scan(PATH_TO_PROJECT)
 pp data
 # {:first_rule=>

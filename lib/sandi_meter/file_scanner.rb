@@ -3,13 +3,14 @@ require_relative 'calculator'
 
 module SandiMeter
   class FileScanner
-    def initialize(log_errors = false)
+    def initialize(ignore_file_path, log_errors = false)
+      @ignore_file_path = ignore_file_path
       @log_errors = log_errors
       @calculator = SandiMeter::Calculator.new
     end
 
     def scan(path, store_details = false)
-      read_ignore_file(path) unless @exclude_patterns
+      read_ignore_file(@ignore_file_path) unless @exclude_patterns
 
       if File.directory?(path)
         scan_dir(path)
@@ -28,9 +29,8 @@ module SandiMeter
     end
 
     def read_ignore_file(path)
-      ignore_file_path = File.join(path, 'sandi_meter', '.sandi_meter')
-      if File.exists?(ignore_file_path)
-        @exclude_patterns ||= File.read(ignore_file_path).split("\n").join("|")
+      if File.exists?(@ignore_file_path)
+        @exclude_patterns ||= File.read(@ignore_file_path).split("\n").join("|")
       end
     end
 
